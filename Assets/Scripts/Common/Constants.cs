@@ -8,4 +8,8 @@ public class Constants
         Dual,
         Multi
     } 
+    
+    public enum PlayerType { None, PlayerA, PlayerB }
+    
+    public const int BlockColumnCount = 3;
 }
