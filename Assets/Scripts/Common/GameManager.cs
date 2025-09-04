@@ -8,6 +8,8 @@ public class GameManager : Singleton<GameManager>
     private Constants.GameType _gameType;
 
     private Canvas _canvas;
+
+    private GameLogic _gameLogic;
     
     /// <summary>
     /// Main -> Game
@@ -19,7 +21,6 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    ///
     /// Game -> Main
     /// </summary>
     public void ChangeToMainScene()
@@ -45,6 +46,14 @@ public class GameManager : Singleton<GameManager>
             // Block 초기화
             var blockController = FindFirstObjectByType<BlockController>();
             blockController.InitBlocks();
+            
+            // GameLogic 생성
+            if (_gameLogic != null)
+            {
+                // TODO: 기존 게임 로직 소멸
+            }
+
+            _gameLogic = new GameLogic(blockController, _gameType);
         }
     }
 }
