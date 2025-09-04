@@ -61,7 +61,7 @@ public class Block : MonoBehaviour
     // 블럭 터치 시
     public void OnMouseUpAsButton()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject())
             return;
         
         _onBlockClicked?.Invoke(_blockIndex);

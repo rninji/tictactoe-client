@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Constants
+public static class Constants
 {
     public enum GameType
     {

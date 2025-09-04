@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
     private Canvas _canvas;
 
     private GameLogic _gameLogic;
+
+    private GameUIController _gameUIController;
     
     /// <summary>
     /// Main -> Game
@@ -37,6 +39,15 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    /// <summary>
+    /// Game Scene에서 턴을 표시하는 UI를 제어하는 함수
+    /// </summary>
+    /// <param name="gameTurnPanelType"></param>
+    public void SetGameTurnPanel(GameUIController.GameTurnPanelType gameTurnPanelType)
+    {
+        _gameUIController.SetGameTurnPanel(gameTurnPanelType);
+    }
+
     protected override void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
         _canvas = FindFirstObjectByType<Canvas>();
@@ -45,7 +56,17 @@ public class GameManager : Singleton<GameManager>
         {
             // Block 초기화
             var blockController = FindFirstObjectByType<BlockController>();
-            blockController.InitBlocks();
+            if (blockController != null)
+            {
+                blockController.InitBlocks();
+            }
+            
+            // Game UI Controller 할당 및 초기화
+            _gameUIController = FindFirstObjectByType<GameUIController>();
+            if (_gameUIController != null)
+            {
+                _gameUIController.SetGameTurnPanel(GameUIController.GameTurnPanelType.None);
+            }
             
             // GameLogic 생성
             if (_gameLogic != null)

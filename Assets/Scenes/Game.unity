@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 603094144}
   - component: {fileID: 603094143}
   m_Layer: 0
-  m_Name: UI
+  m_Name: UI Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,6 +855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e221f0093ad4151b0f6e59fb2c1a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerATurnPanel: {fileID: 1871177052}
+  playerBTurnPanel: {fileID: 1278658534}
 --- !u!4 &603094144
 Transform:
   m_ObjectHideFlags: 0
