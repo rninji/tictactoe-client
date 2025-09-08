@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject confirmPanel;
+    [SerializeField] private GameObject loginPanel;
     
     private Constants.GameType _gameType;
 
@@ -12,7 +14,12 @@ public class GameManager : Singleton<GameManager>
     private GameLogic _gameLogic;
 
     private GameUIController _gameUIController;
-    
+
+    private void Start()
+    {
+        OpenSigninPanel();
+    }
+
     /// <summary>
     /// Main -> Game
     /// </summary>
@@ -36,6 +43,18 @@ public class GameManager : Singleton<GameManager>
         {
             var confirmPanelObject = Instantiate(confirmPanel, _canvas.transform);
             confirmPanelObject.GetComponent<ConfirmPanelController>().Show(message, onConfirmButtonClicked);
+        }
+    }
+
+    /// <summary>
+    /// 로그인 팝업 표시
+    /// </summary>
+    public void OpenSigninPanel()
+    {
+        if (_canvas != null)
+        {
+            var loginPanelObject = Instantiate(loginPanel, _canvas.transform);
+            loginPanelObject.GetComponent<SigninPanelController>().Show();
         }
     }
 

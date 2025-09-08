@@ -1223,6 +1223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   confirmPanel: {fileID: 1688922239639851212, guid: 9d1eb8ffc8611427f806b93d550b6425, type: 3}
+  loginPanel: {fileID: 1688922239639851212, guid: 52bc70f84a1f448bf9bd6e8601e35cf1, type: 3}
 --- !u!4 &1647719993
 Transform:
   m_ObjectHideFlags: 0

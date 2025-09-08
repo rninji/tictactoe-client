@@ -2,6 +2,8 @@ using UnityEngine;
 
 public static class Constants
 {
+    public const string ServerUrl = "http://localhost:3000";
+    
     public enum GameType
     {
         Single,
