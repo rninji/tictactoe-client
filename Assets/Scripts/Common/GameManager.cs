@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject confirmPanel;
     [SerializeField] private GameObject loginPanel;
+    [SerializeField] private GameObject signupPanel;
     
     private Constants.GameType _gameType;
 
@@ -55,6 +56,18 @@ public class GameManager : Singleton<GameManager>
         {
             var loginPanelObject = Instantiate(loginPanel, _canvas.transform);
             loginPanelObject.GetComponent<SigninPanelController>().Show();
+        }
+    }
+    
+    /// <summary>
+    /// 회원가입 팝업 표시
+    /// </summary>
+    public void OpenSignupPanel()
+    {
+        if (_canvas != null)
+        {
+            var signupPanelObject = Instantiate(signupPanel, _canvas.transform);
+            signupPanelObject.GetComponent<SignupPanelController>().Show();
         }
     }
 
