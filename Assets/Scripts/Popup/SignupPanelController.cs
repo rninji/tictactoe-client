@@ -24,8 +24,8 @@ public class SignupPanelController : PanelController
     {
         string username = usernameInputField.text;
         string password = passwordInputField.text;
-        string confirmPassword = passwordInputField.text;
-        string nickname = passwordInputField.text;
+        string confirmPassword = confirmPasswordInputField.text;
+        string nickname = nicknameInputField.text;
         
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(nickname))
         {
@@ -34,9 +34,14 @@ public class SignupPanelController : PanelController
         }
         
         // Confirm Password
-        if (password.Equals(confirmPassword))
+        if (!password.Equals(confirmPassword))
         {
-            
+            GameManager.Instance.OpenConfirmPanel("비밀번호가 일치하지 않습니다.", 
+                ()=>{
+                    passwordInputField.text = "";
+                    confirmPasswordInputField.text = "";
+                });
+            return;
         }
         
         SignupData signupData = new SignupData();
@@ -61,6 +66,13 @@ public class SignupPanelController : PanelController
                         {
                             usernameInputField.text = "";
                             passwordInputField.text = "";
+                        });
+                }
+                else
+                {
+                    GameManager.Instance.OpenConfirmPanel("오류", 
+                        ()=>
+                        {
                         });
                 }
             }));
