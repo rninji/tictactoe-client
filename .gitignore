@@ -79,12 +79,3 @@ crashlytics-build.properties
 
 # idea
 *.idea
-
-
-# TextMesh Pro
-/[Aa]ssets/[Tt]extMesh\ Pro.meta
-/[Aa]ssets/[Tt]extMesh\ Pro/*
-
-# DOTween
-/[Aa]ssets/[Ff]onts.meta
-/[Aa]ssets/[Ff]onts/*
