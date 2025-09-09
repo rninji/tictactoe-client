@@ -20,7 +20,7 @@ public class MultiplayController : IDisposable
     private SocketIOUnity _socket;
 
     private Action<Constants.MultiplayControllerState, string> _onMultiPlayStateChanged;
-    private Action<int> _onBlockDataChanged;
+    public Action<int> onBlockDataChanged;
 
     public MultiplayController(Action<Constants.MultiplayControllerState, string> onMultiPlayStateChanged)
     {
@@ -77,7 +77,7 @@ public class MultiplayController : IDisposable
     public void DoOpponent(SocketIOResponse response)
     {
         var data = response.GetValue<BlockData>();
-        _onBlockDataChanged?.Invoke(data.blockIndex);
+        onBlockDataChanged?.Invoke(data.blockIndex);
     }
     
     #region Client => Server

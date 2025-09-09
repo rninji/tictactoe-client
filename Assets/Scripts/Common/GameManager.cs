@@ -35,6 +35,8 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void ChangeToMainScene()
     {
+        _gameLogic?.Dispose();
+        _gameLogic = null;
         SceneManager.LoadScene("Main");
     }
 
@@ -101,12 +103,14 @@ public class GameManager : Singleton<GameManager>
             }
             
             // GameLogic 생성
-            if (_gameLogic != null)
-            {
-                // TODO: 기존 게임 로직 소멸
-            }
-
+            if (_gameLogic != null) _gameLogic.Dispose();
             _gameLogic = new GameLogic(blockController, _gameType);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        _gameLogic?.Dispose();
+        _gameLogic = null;
     }
 }

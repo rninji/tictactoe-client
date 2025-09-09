@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class GameLogic
+public class GameLogic : IDisposable
 {
     public BlockController blockController;
     private Constants.PlayerType[,] _board;         // 보드의 상태 정보
@@ -11,6 +12,9 @@ public class GameLogic
     public enum GameResult { None, Win, Lose, Draw }
     
     private BasePlayerState _currentPlayerState; // 현재 턴의 Player
+
+    private MultiplayController _multiplayController; // Multiplay
+    private string _roomId; 
     
     public GameLogic(BlockController blockController, Constants.GameType gameType)
     {
@@ -38,6 +42,35 @@ public class GameLogic
                 SetState(firstPlayerState);
                 break;
             case Constants.GameType.MultiPlay:
+                _multiplayController = new MultiplayController((state, roomId) =>
+                {
+                    _roomId = roomId;
+                    switch (state)
+                    {
+                        case Constants.MultiplayControllerState.CreateRoom :
+                            Debug.Log("## CREATE ROOM ##");
+                            break;
+                        case Constants.MultiplayControllerState.JoinRoom :
+                            Debug.Log("## JOIN ROOM ##");
+                            firstPlayerState = new MultiplayerState(true, _multiplayController);
+                            secondPlayerState = new PlayerState(false, _multiplayController, _roomId);
+                            SetState(firstPlayerState);
+                            break;
+                        case Constants.MultiplayControllerState.StartGame:
+                            firstPlayerState = new PlayerState(true, _multiplayController, _roomId);
+                            secondPlayerState = new MultiplayerState(false, _multiplayController);
+                            SetState(firstPlayerState);
+                            break;
+                        case Constants.MultiplayControllerState.ExitRoom :
+                            Debug.Log("## EXIT ROOM ##");
+                            // TODO: 팝업 듸우고 메인화면으로 이동
+                            break;
+                        case Constants.MultiplayControllerState.EndGame:
+                            Debug.Log("## END ROOM ##");
+                            // TODO: 팝업 듸우고 메인화면으로 이동
+                            break;
+                    }
+                });
                 break;
         }
     }
@@ -118,5 +151,9 @@ public class GameLogic
         return GameResult.None;
     }
 
-    
+
+    public void Dispose()
+    {
+        
+    }
 }

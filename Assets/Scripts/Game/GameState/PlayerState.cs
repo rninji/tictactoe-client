@@ -5,10 +5,22 @@ public class PlayerState : BasePlayerState
     private bool _isFirstPlayer;
     private Constants.PlayerType _playerType;
     
+    private MultiplayController _multiplayController;
+    private string _roomId;
+    private bool _isMultiplay;
+    
     public PlayerState(bool isFirstPlayer)
     {
         _isFirstPlayer = isFirstPlayer;
         _playerType = _isFirstPlayer ? Constants.PlayerType.PlayerA : Constants.PlayerType.PlayerB;
+        _isMultiplay = false;
+    }
+
+    public PlayerState(bool isFirstPlayer, MultiplayController multiplayController, string roomId) : this(isFirstPlayer)
+    {
+        _multiplayController = multiplayController;
+        _roomId = roomId;
+        _isMultiplay = true;
     }
     
     # region 필수 메서드
@@ -37,6 +49,10 @@ public class PlayerState : BasePlayerState
     public override void HandleMove(GameLogic gameLogic, int row, int col)
     {
         ProcessMove(gameLogic, _playerType, row, col);
+        if (_isMultiplay) // 서버에 마커 전달
+        {
+            _multiplayController.DoPlayer(_roomId, row * Constants.BlockColumnCount + col);
+        }
     }
 
     protected override void HandleNextTurn(GameLogic gameLogic)
