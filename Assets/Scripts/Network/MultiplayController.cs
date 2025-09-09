@@ -33,12 +33,12 @@ public class MultiplayController : IDisposable
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
         
-        _socket.On("createRoom", CreateRoom);
-        _socket.On("joinRoom", JoinRoom);
-        _socket.On("startGame", StartGame);
-        _socket.On("exitRoom", ExitRoom);
-        _socket.On("endGame", EndGame);
-        _socket.On("doOpponent", DoOpponent);
+        _socket.OnUnityThread("createRoom", CreateRoom);
+        _socket.OnUnityThread("joinRoom", JoinRoom);
+        _socket.OnUnityThread("startGame", StartGame);
+        _socket.OnUnityThread("exitRoom", ExitRoom);
+        _socket.OnUnityThread("endGame", EndGame);
+        _socket.OnUnityThread("doOpponent", DoOpponent);
         
         _socket.Connect(); // 서버에 접속
     }
@@ -87,9 +87,9 @@ public class MultiplayController : IDisposable
         _socket.Emit("leaveRoom", new { roomId });
     }
 
-    public void DoPlayer(string roomId, int position)
+    public void DoPlayer(string roomId, int blockIndex)
     {
-        _socket.Emit("doPlayer", new { roomId, position });
+        _socket.Emit("doPlayer", new { roomId, blockIndex });
     }
     #endregion
 

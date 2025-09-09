@@ -57,6 +57,7 @@ public class GameLogic : IDisposable
                             SetState(firstPlayerState);
                             break;
                         case Constants.MultiplayControllerState.StartGame:
+                            Debug.Log("## START ROOM ##");
                             firstPlayerState = new PlayerState(true, _multiplayController, _roomId);
                             secondPlayerState = new MultiplayerState(false, _multiplayController);
                             SetState(firstPlayerState);
@@ -154,6 +155,7 @@ public class GameLogic : IDisposable
 
     public void Dispose()
     {
-        
+        _multiplayController?.LeaveRoom(_roomId);
+        _multiplayController?.Dispose();
     }
 }
